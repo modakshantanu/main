@@ -58,6 +58,7 @@ public class TabAutoCompleteTest extends ApplicationTest {
         Assertions.assertEquals("", userInput.getText());
 
     }
+
     @Test
     void testTab_matchFound() {
         clickOn("#userInput")
@@ -68,6 +69,7 @@ public class TabAutoCompleteTest extends ApplicationTest {
         Assertions.assertEquals("select", userInput.getText());
 
     }
+
     @Test
     void testTab_noMatch() {
         clickOn("#userInput")
@@ -78,6 +80,7 @@ public class TabAutoCompleteTest extends ApplicationTest {
         Assertions.assertEquals("x", userInput.getText());
 
     }
+
     @Test
     void testTab_completeCommand() {
         clickOn("#userInput")

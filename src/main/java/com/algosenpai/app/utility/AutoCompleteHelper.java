@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * A utility class to help in AutoComplete feature.
  */
-public class AutoCompleteHelper{
+public class AutoCompleteHelper {
 
     /**
      * Returns the command string starting with the same text as the String paramter passed.

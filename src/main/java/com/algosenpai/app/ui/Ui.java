@@ -152,7 +152,7 @@ public class Ui extends AnchorPane {
         } else if (k == KeyCode.DOWN) {
             userInput.setText(logic.getNextCommand());
             userInput.positionCaret(userInput.getText().length());
-        } else if (k == KeyCode.TAB){
+        } else if (k == KeyCode.TAB) {
             // Replace text with autocomplete best match.
             // If no match is found, text is unchanged.
             userInput.setText(AutoCompleteHelper.autoCompleteCommand(userInput.getText()));
