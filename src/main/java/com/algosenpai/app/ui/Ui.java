@@ -21,10 +21,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import org.w3c.dom.events.Event;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 /**
@@ -62,6 +65,11 @@ public class Ui extends AnchorPane {
     private int userExp = 0;
     private int idleMinutesMax = 180;
     private int userLevel = 1;
+
+    private boolean keyPressed = false;
+    // How many inputs in the past the user wants to access
+    private int inputHistoryOffset = 0;
+
     private static final String GREETING_MESSAGE = "Welcome to AlgoSenpai Adventures!"
                                                    + " Type 'hello' followed by your name and gender"
                                                    + " (boy/girl) to start!\n \n"
@@ -87,6 +95,13 @@ public class Ui extends AnchorPane {
         handle();
         userPic.setImage(userImage);
         userInput.setPromptText("Enter a command (Enter \"menu\" to see a list of commands");
+        userInput.setOnKeyPressed(keyEvent -> {
+            if (!keyPressed) {
+                handleArrowKeys(keyEvent.getCode());
+                keyPressed = true;
+            }
+        });
+        userInput.setOnKeyReleased(keyEvent -> keyPressed = false);
         levelProgress.setProgress(0);
         playerLevel.setText("You are Level 1");
         handle();
@@ -102,6 +117,7 @@ public class Ui extends AnchorPane {
      */
     @FXML
     private void handleUserInput() throws IOException {
+
         resetIdle();
         String input = userInput.getText();
         Command commandGenerated = logic.executeCommand(input);
@@ -125,6 +141,22 @@ public class Ui extends AnchorPane {
         } else {
             printToGui(input, response, userImage, senpaiImage);
         }
+    }
+
+    @FXML
+    private void handleArrowKeys(KeyCode k) {
+        // Get the previous and next commands from the historyList inside logic.
+        if (k == KeyCode.UP) {
+            userInput.setText(logic.getPreviousCommand());
+        } else if (k == KeyCode.DOWN) {
+            userInput.setText(logic.getNextCommand());
+        } else {
+            return;
+        }
+
+        // Puts the cursor to the front of the text, overriding the default behaviour of arrow keys.
+        userInput.positionCaret(userInput.getText().length());
+
     }
 
     /**
