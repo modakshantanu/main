@@ -10,6 +10,7 @@ import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.ui.controller.AnimationTimerController;
 import com.algosenpai.app.ui.components.DialogBox;
+import com.algosenpai.app.utility.AutoCompleteHelper;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -25,9 +26,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import org.w3c.dom.events.Event;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 /**
@@ -97,7 +96,7 @@ public class Ui extends AnchorPane {
         userInput.setPromptText("Enter a command (Enter \"menu\" to see a list of commands");
         userInput.setOnKeyPressed(keyEvent -> {
             if (!keyPressed) {
-                handleArrowKeys(keyEvent.getCode());
+                handleKeyPress(keyEvent.getCode());
                 keyPressed = true;
             }
         });
@@ -144,18 +143,32 @@ public class Ui extends AnchorPane {
     }
 
     @FXML
-    private void handleArrowKeys(KeyCode k) {
+    private void handleKeyPress(KeyCode k) {
         // Get the previous and next commands from the historyList inside logic.
         if (k == KeyCode.UP) {
             userInput.setText(logic.getPreviousCommand());
+            // Puts the cursor to the front of the text, overriding the default behaviour of arrow keys.
+            userInput.positionCaret(userInput.getText().length());
         } else if (k == KeyCode.DOWN) {
             userInput.setText(logic.getNextCommand());
-        } else {
-            return;
+            userInput.positionCaret(userInput.getText().length());
+        } else if (k == KeyCode.TAB){
+            // Replace text with autocomplete best match.
+            // If no match is found, text is unchanged.
+            userInput.setText(AutoCompleteHelper.autoCompleteCommand(userInput.getText()));
+            // Bring focus back to textfield to prevent the default behaviour of tab.
+            userInput.requestFocus();
+
+            // Un select the text (selected by default).
+            userInput.deselect();
+            // Puts the cursor to the front of the text.
+            userInput.positionCaret(userInput.getText().length());
+
+
         }
 
-        // Puts the cursor to the front of the text, overriding the default behaviour of arrow keys.
-        userInput.positionCaret(userInput.getText().length());
+
+
 
     }
 
