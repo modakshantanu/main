@@ -6,9 +6,10 @@ import com.algosenpai.app.stats.UserStats;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ShowStatsCommand extends Command{
+public class ShowStatsCommand extends Command {
 
     private UserStats userStats;
+
     /**
      * Create new command.
      *

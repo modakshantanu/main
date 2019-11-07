@@ -20,6 +20,8 @@ public class Logic {
     private AtomicInteger chapterNumber = new AtomicInteger(-1);
     //Check if currently in quiz mode.
     private AtomicBoolean isQuizMode = new AtomicBoolean(false);
+    //Check if currently in reset Confirmation mode
+    private AtomicBoolean isResetMode = new AtomicBoolean(false);
     //Checks if it is a new quiz.
     private AtomicBoolean isNewQuiz = new AtomicBoolean(true);
     //The arraylist containing the questions.
@@ -79,6 +81,8 @@ public class Logic {
             } else {
                 return determineQuizAction(inputs);
             }
+        } else if (isResetMode.get() || userInput.equals("reset")) {
+            return new ResetCommand(inputs,userStats,isResetMode);
         } else {
             switch (userInput) {
             case "hello":
@@ -101,9 +105,6 @@ public class Logic {
                 return new ClearCommand(inputs);
             case "stats":
                 return new ShowStatsCommand(inputs,userStats);
-            case "reset":
-                // TODO SHANTANU
-                return null;
             case "exit":
                 return new ByeCommand(inputs);
             case "print":
