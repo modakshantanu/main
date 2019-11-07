@@ -6,6 +6,7 @@ import com.algosenpai.app.storage.Storage;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+
 public class ResetCommand extends Command {
 
     private UserStats userStats;
