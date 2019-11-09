@@ -16,6 +16,7 @@ public class SetupCommand extends Command {
 
     /**
      * Create new command.
+     *
      * @param inputs input from user.
      */
     public SetupCommand(ArrayList<String> inputs) {
@@ -24,8 +25,9 @@ public class SetupCommand extends Command {
 
     /**
      * Initializes quiz command to start quiz.
+     *
      * @param inputs user inputs.
-     * @param stats the UserStats object used.
+     * @param stats  the UserStats object used.
      */
     public SetupCommand(ArrayList<String> inputs, UserStats stats) {
         this(inputs);
@@ -39,7 +41,7 @@ public class SetupCommand extends Command {
             UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
             if (previousStats.getUsername().equals("Default")) {
                 return "Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
-                    + "Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.";
+                        + "Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.";
             } else {
                 gender = previousStats.getGender();
                 userName = previousStats.getUsername();
@@ -48,8 +50,6 @@ public class SetupCommand extends Command {
                 stats = new UserStats(previousStats);
                 return "Welcome back " + userName + "! To continue on your adventure, pick a command from 'menu'.";
             }
-        } else if (inputs.size() > 3) {
-            return "Please enter your name and gender in the following format : 'hello NAME GENDER (boy/girl)' please.";
         } else {
             userName = inputs.get(1);
             gender = inputs.get(2).toLowerCase();

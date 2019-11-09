@@ -71,6 +71,15 @@ public class InvalidCommandTest extends ApplicationTest {
     }
 
     @Test
+    void testInvalidWithSpace() {
+        clickOn("#userInput").write(" menuu ").clickOn("#sendButton");
+        VBox container = find();
+        DialogBox dialogBox = (DialogBox) container.getChildren().get(1);
+        String actualText = dialogBox.getDialog().getText();
+        Assertions.assertEquals(" menuu ", actualText);
+    }
+
+    @Test
     void testInvalidMultipleSpaces() throws IOException {
         UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
         Logic logic = new Logic(previousStats);
@@ -87,10 +96,10 @@ public class InvalidCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testInvalidUnknownCharacterAbsentFromAllCommands() throws IOException {
+    void testInvalidStartWithInsteadOfEditDistance() throws IOException {
         UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
         Logic logic = new Logic(previousStats);
-        Command command = logic.executeCommand("f");
+        Command command = logic.executeCommand("ar");
         String actualText = command.execute();
         if (previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
@@ -98,7 +107,23 @@ public class InvalidCommandTest extends ApplicationTest {
                     + "'hello NAME GENDER (boy/girl)' please.", actualText);
         } else if (!previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
-                    + "menu, quiz, undo, help, save, exit?", actualText);
+                    + "archive?", actualText);
+        }
+    }
+
+    @Test
+    void testInvalidWithMinEditDistance() throws IOException {
+        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        Logic logic = new Logic(previousStats);
+        Command command = logic.executeCommand("exig");
+        String actualText = command.execute();
+        if (previousStats.getUsername().equals("Default")) {
+            Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
+                    + "Can I have your name and gender in the format : "
+                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
+        } else if (!previousStats.getUsername().equals("Default")) {
+            Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. "
+                    + "Did you mean... exit?", actualText);
         }
     }
 
@@ -114,21 +139,41 @@ public class InvalidCommandTest extends ApplicationTest {
                     + "'hello NAME GENDER (boy/girl)' please.", actualText);
         } else if (!previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
-                    + "clear, help, save?", actualText);
+                    + "back, clear, help, save?", actualText);
         }
     }
 
     @Test
-    void testInvalidWithMaximumEditDistance() throws IOException {
+    void testInvalidWithCharacterAbsentFromAllCommands() throws IOException {
         UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
         Logic logic = new Logic(previousStats);
-        Command command = logic.executeCommand("fffgggjjjkkk");
+        Command command = logic.executeCommand("f");
         String actualText = command.execute();
         if (previousStats.getUsername().equals("Default")) {
             Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
                     + "Can I have your name and gender in the format : "
                     + "'hello NAME GENDER (boy/girl)' please.", actualText);
         } else if (!previousStats.getUsername().equals("Default")) {
+            Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. "
+                    + "Enter `menu` to view our list of commands "
+                    + "and `menu <command> to find out how to use them!", actualText);
+        }
+    }
+
+    @Test
+    void testInvalidWithStringThatContainsCharactersAbsentFromAllCommands() throws IOException {
+        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        Logic logic = new Logic(previousStats);
+        Command command = logic.executeCommand("ffffggggjjjj");
+        String actualText = command.execute();
+        if (previousStats.getUsername().equals("Default")) {
+            Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
+                                              + "Can I have your name and gender in the format : "
+                                              + "'hello NAME GENDER (boy/girl)' please.", actualText);
+        } else if (!previousStats.getUsername().equals("Default")) {
+            Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. "
+                                              + "Enter `menu` to view our list of commands "
+                                              + "and `menu <command> to find out how to use them!", actualText);
             Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
                     + "menu, lecture, quiz, arcade, chapters, review, reset, history, undo, clear, help, volume, print,"
                     + " archive, save, stats, result, exit?", actualText);

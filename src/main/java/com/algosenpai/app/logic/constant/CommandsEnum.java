@@ -13,24 +13,27 @@ public enum CommandsEnum {
     quiz, //2
     arcade, //3
     chapters, //4
-    review, //5
-    reset, //6
-    history, //7
-    undo, //8
-    clear, //9
-    help, //10
-    volume, //11
-    print, //12
-    archive, //13
-    save, //14
-    stats, //15
-    result,//16
-    exit, // 17
-    load; // 18
+    next, //5
+    back, //6
+    end, //7
+    review, //8
+    reset, //9
+    history, //10
+    undo, //11
+    clear, //12
+    help, //13
+    volume, //14
+    print, //15
+    archive, //16
+    save, //17
+    stats, //18
+    start,//19
+    result,//20
+    exit; //21
 
     private static List<String> enumNames = Stream.of(CommandsEnum.values())
-            .map(CommandsEnum::name)
-            .collect(Collectors.toList());
+                                                  .map(CommandsEnum::name)
+                                                  .collect(Collectors.toList());
 
     /**
      * Returns the valid commands as strings in a list.
@@ -47,8 +50,8 @@ public enum CommandsEnum {
      */
     public static List<String> getQuizBlockedNames() {
         List<String> blockedNames = new LinkedList<>(enumNames);
-        blockedNames.remove(16); //exit
-        blockedNames.remove(11); //volume
+        blockedNames.remove(21); //exit
+        blockedNames.remove(14); //volume
         blockedNames.remove(2); //quiz
         return blockedNames;
     }
@@ -59,8 +62,8 @@ public enum CommandsEnum {
      */
     public static List<String> getLectureBlockedNames() {
         List<String> blockedNames = new LinkedList<>(enumNames);
-        blockedNames.remove(16); //exit
-        blockedNames.remove(11); //volume
+        blockedNames.remove(21); //exit
+        blockedNames.remove(14); //volume
         blockedNames.remove(1); //lecture
         return blockedNames;
     }
@@ -71,8 +74,8 @@ public enum CommandsEnum {
      */
     public static List<String> getArcadeBlockedNames() {
         List<String> blockedNames = new LinkedList<>(enumNames);
-        blockedNames.remove(16); //exit
-        blockedNames.remove(11); //volume
+        blockedNames.remove(21); //exit
+        blockedNames.remove(14); //volume
         return blockedNames;
     }
 

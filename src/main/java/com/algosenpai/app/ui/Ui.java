@@ -2,12 +2,14 @@ package com.algosenpai.app.ui;
 
 import com.algosenpai.app.logic.Logic;
 import com.algosenpai.app.logic.command.critical.ByeCommand;
+import com.algosenpai.app.logic.command.critical.ResetCommand;
 import com.algosenpai.app.logic.command.utility.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.utility.SetupCommand;
 import com.algosenpai.app.logic.command.utility.UndoCommand;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.logic.parser.Parser;
+import com.algosenpai.app.storage.Storage;
 import com.algosenpai.app.ui.controller.AnimationTimerController;
 import com.algosenpai.app.ui.components.DialogBox;
 import com.algosenpai.app.utility.AutoCompleteHelper;
@@ -64,6 +66,7 @@ public class Ui extends AnchorPane {
     private int maxuserExp = 8;
     private int userExp = 0;
     private int idleMinutesMax = 180;
+    private int idleMinutes = 180;
     private int userLevel = 1;
 
     // A flag to prevent a key *held down* from being interpreted as multiple key Presses.
@@ -128,7 +131,6 @@ public class Ui extends AnchorPane {
      */
     @FXML
     private void handleUserInput() throws IOException {
-
         resetIdle();
         String input = userInput.getText();
         Command commandGenerated = logic.executeCommand(input);
@@ -136,6 +138,7 @@ public class Ui extends AnchorPane {
 
         if (commandGenerated instanceof UndoCommand) {
             if (dialogContainer.getChildren().isEmpty()) {
+                idleMinutes = 180;
                 printSenpaiText("There are no more chats to undo!", senpaiImage);
                 handleUndoAfterClear();
             } else {
@@ -143,6 +146,15 @@ public class Ui extends AnchorPane {
             }
         } else if (commandGenerated instanceof ClearCommand) {
             clearChat();
+        } else if (commandGenerated instanceof ResetCommand) {
+            userLevel = stats.getUserLevel();
+            maxuserExp = 8 << (userLevel - 1);
+            userExp = stats.getUserExp();
+            System.out.println(userLevel);
+            System.out.println(maxuserExp);
+            updateLevelProgress(0);
+            playerName.setText("Username : " + stats.getUsername());
+            printToGui(input, response, userImage, senpaiImage);
         } else if (commandGenerated instanceof ByeCommand) {
             printToGui(input, response, userImage, senpaiImage);
             exit();
@@ -299,9 +311,10 @@ public class Ui extends AnchorPane {
         AnimationTimerController animationTimerController = new AnimationTimerController(1000) {
             @Override
             public void handle() {
-                if (idleMinutesMax > 170) {
-                    idleMinutesMax--;
-                } else {
+                if (idleMinutes > 178) {
+                    idleMinutes--;
+                } else if (idleMinutes == 178) {
+                    idleMinutes = 0;
                     clearChat();
                 }
             }

@@ -21,35 +21,36 @@ public class MenuCommand extends Command {
     public String execute() {
         if (inputs.size() == 1) {
             String string = "Senpai will teach you! Try these commands :\n"
-                        + "Critical : \n"
-                        + "*\tlecture\n"
-                        + "*\tquiz\n"
-                        + "*\tarcade\n"
-                        + "*\treset\n"
-                        + "*\texit\n"
-                        +  "\n"
-                        + "Utility : \n"
-                        + "*\tmenu\n"
-                        + "*\treview\n"
-                        + "*\thistory\n"
-                        + "*\tundo\n"
-                        + "*\thelp\n"
-                        + "*\tprint\n"
-                        + "*\tarchive\n"
-                        + "*\tsave\n"
-                        + "\n"
-                        + "Misc : \n"
-                        + "*\tchapters\n"
-                        + "*\tclear\n"
-                        + "*\tvolume\n"
-                        + "*\tresult\n"
-                        + "*\tstats\n"
-                        + "Type `menu <command> to see how to use certain commands.\n";
+                    + "Critical : \n"
+                    + "*\tlecture\n"
+                    + "*\tquiz\n"
+                    + "*\tarcade\n"
+                    + "*\treset\n"
+                    + "*\texit\n"
+                    +  "\n"
+                    + "Utility : \n"
+                    + "*\tmenu\n"
+                    + "*\tstart\n"
+                    + "*\treview\n"
+                    + "*\thistory\n"
+                    + "*\tundo\n"
+                    + "*\thelp\n"
+                    + "*\tprint\n"
+                    + "*\tarchive\n"
+                    + "*\tsave\n"
+                    + "\n"
+                    + "Misc : \n"
+                    + "*\tchapters\n"
+                    + "*\tclear\n"
+                    + "*\tvolume\n"
+                    + "*\tresult\n"
+                    + "*\tstats\n"
+                    + "Type `menu <command> to see how to use certain commands.\n";
             System.out.println(string);
             return string;
         } else {
             try {
-                MenuExceptions.checkInput(inputs);
+                MenuExceptions.checkInputSize(inputs);
                 switch (inputs.get(1)) {
                 case "lecture":
                     return "`lecture` to pick a chapter. Type `start` to begin the lecture.";
@@ -59,7 +60,20 @@ public class MenuCommand extends Command {
                     return "`help <chapter>` to view the list of problems on kattis "
                             + "that you may wish to solve for the corresponding chapter";
                 case "quiz":
-                    return "`quiz` to pick a chapter. Type `start` to begin the quiz. ";
+                    return "`quiz <chapter>` to select a chapter, enter `menu quizcommands` "
+                            + "to find out the commands available during a quiz";
+                case "quizcommands":
+                    return "`next` to go to the next question || `back` to return to the previous question "
+                            + "|| `end` to end the quiz || <input your answer separated with commas> e.g. 30, 40, 50\n"
+                            + "you may enter `menu <quiz command>` as well";
+                case "start":
+                    return "`start` to start a quiz after selecting a chapter";
+                case "next":
+                    return "`next` to go to the next question during a quiz";
+                case "back":
+                    return "`back` to go to the previous question during a quiz";
+                case "end":
+                    return "`end` to be used if you want to end the quiz before completing it";
                 case "result":
                     return "`result` to view your results of the past quizzes you've attempted before";
                 case "history":
