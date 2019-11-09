@@ -48,6 +48,7 @@ public class MenuCommandTest extends ApplicationTest {
     @AfterEach
     void tearDown() throws Exception {
         FxToolkit.hideStage();
+
     }
 
     @Test

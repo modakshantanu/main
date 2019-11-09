@@ -62,6 +62,7 @@ public class ReviewCommandTest extends ApplicationTest {
     @AfterEach
     void tearDown() throws Exception {
         FxToolkit.hideStage();
+        System.gc();
     }
 
 

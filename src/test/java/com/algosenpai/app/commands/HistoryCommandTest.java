@@ -47,6 +47,7 @@ public class HistoryCommandTest extends ApplicationTest {
     @AfterEach
     void tearDown() throws Exception {
         FxToolkit.hideStage();
+        System.gc();
     }
 
     @Test

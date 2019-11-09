@@ -46,6 +46,7 @@ public class TabAutoCompleteTest extends ApplicationTest {
     @AfterEach
     void tearDown() throws Exception {
         FxToolkit.hideStage();
+        System.gc();
     }
 
     @Test
