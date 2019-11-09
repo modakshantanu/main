@@ -1,8 +1,9 @@
 //@@author carrieng0323852
 
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.utility;
 
 import com.algosenpai.app.exceptions.MenuExceptions;
+import com.algosenpai.app.logic.command.Command;
 
 import java.util.ArrayList;
 
@@ -19,37 +20,46 @@ public class MenuCommand extends Command {
     @Override
     public String execute() {
         if (inputs.size() == 1) {
-            return "Senpai will teach you! Try these commands\n"
-                    + "chapters\n"
-                    + "help\n"
-                    + "quiz\n"
-                    + "select\n"
-                    + "result\n"
-                    + "history\n"
-                    + "undo\n"
-                    + "clear\n"
-                    + "save\n"
-                    + "reset\n"
-                    + "exit\n"
-                    + "print\n"
-                    + "archive\n"
-                    + "review\n"
-                    + "volume \n"
-                    + "menu <command>\n";
+            String string = "Senpai will teach you! Try these commands :\n"
+                        + "Critical : \n"
+                        + "*\tlecture\n"
+                        + "*\tquiz\n"
+                        + "*\tarcade\n"
+                        + "*\treset\n"
+                        + "*\texit\n"
+                        +  "\n"
+                        + "Utility : \n"
+                        + "*\tmenu\n"
+                        + "*\treview\n"
+                        + "*\thistory\n"
+                        + "*\tundo\n"
+                        + "*\thelp\n"
+                        + "*\tprint\n"
+                        + "*\tarchive\n"
+                        + "*\tsave\n"
+                        + "\n"
+                        + "Misc : \n"
+                        + "*\tchapters\n"
+                        + "*\tclear\n"
+                        + "*\tvolume\n"
+                        + "*\tresult\n"
+                        + "*\tstats\n"
+                        + "Type `menu <command> to see how to use certain commands.\n";
+            System.out.println(string);
+            return string;
         } else {
             try {
                 MenuExceptions.checkInput(inputs);
                 switch (inputs.get(1)) {
+                case "lecture":
+                    return "`lecture` to pick a chapter. Type `start` to begin the lecture.";
                 case "chapters":
                     return "`chapters` to view the list of chapters";
                 case "help":
                     return "`help <chapter>` to view the list of problems on kattis "
                             + "that you may wish to solve for the corresponding chapter";
-                case "select":
-                    return "`select <chapter>` to attempt a quiz on that chapter";
                 case "quiz":
-                    return "`quiz` to start quiz || next | back | end | <input your answer> "
-                            + "when you are attempting a quiz";
+                    return "`quiz` to pick a chapter. Type `start` to begin the quiz. ";
                 case "result":
                     return "`result` to view your results of the past quizzes you've attempted before";
                 case "history":
@@ -73,7 +83,7 @@ public class MenuCommand extends Command {
                 case "volume":
                     return "`volume <sound level>` to adjust the volume level";
                 default:
-                    return "Error there is so such command, enter `menu` to get the list of available commands.";
+                    return "Error there is no such command, enter `menu` to get the list of available commands.";
                 }
             } catch (MenuExceptions e) {
                 return e.getMessage();

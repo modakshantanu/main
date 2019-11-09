@@ -1,13 +1,14 @@
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.utility;
 
+import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.models.QuestionModel;
 
 import java.util.ArrayList;
 
 public class ArchiveCommand extends Command {
 
-    ArrayList<QuestionModel> quizList;
-    ArrayList<QuestionModel> archiveList;
+    private ArrayList<QuestionModel> quizList;
+    private ArrayList<QuestionModel> archiveList;
 
     /**
      * Create new command.

@@ -1,12 +1,13 @@
-package com.algosenpai.app.logic.command;
+package com.algosenpai.app.logic.command.utility;
 
 import com.algosenpai.app.exceptions.HistoryExceptions;
+import com.algosenpai.app.logic.command.Command;
 
 import java.util.ArrayList;
 
 public class HistoryCommand extends Command {
 
-    ArrayList<String> historyList;
+    private ArrayList<String> historyList;
 
     /**
      * Create new command.
