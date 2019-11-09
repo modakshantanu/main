@@ -321,7 +321,7 @@ public class UserStats {
      */
     public void resetAll() {
         expLevel = 0;
-        level = 0;
+        level = 1;
 
         for (int i = 0; i < chapterData.size(); i++) {
             chapterData.get(i).resetAll();
