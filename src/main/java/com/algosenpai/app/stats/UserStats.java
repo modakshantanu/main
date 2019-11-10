@@ -59,18 +59,18 @@ public class UserStats {
         File file = new File(userDataFilePath);
         if (!file.isFile()) {
             this.userName = "Default";
-            this.gender = "???";
+            this.gender = "????";
             this.level = 1;
             this.expLevel = 0;
             final String INIT_COMMENT = "You have not attempted this chapter yet";
             chapterData.add(new ChapterStat("Sorting",1,0,0,0,0,0,INIT_COMMENT));
             chapterData.add(new ChapterStat("Linked List",2,0,0,0,0,0,INIT_COMMENT));
             chapterData.add(new ChapterStat("Bitmask",3,0,0,0,0,0,INIT_COMMENT));
-            Storage.saveData("./UserData.txt", this.toString());
+            Storage.saveData(userDataFilePath, this.toString());
         } else {
             String fileContents = null;
             try {
-                fileContents = Storage.loadData("./UserData.txt");
+                fileContents = Storage.loadData(userDataFilePath);
             } catch (FileNotFoundException ignored) {
                 throw new FileParsingException("The file does not exist!");
             }
@@ -378,5 +378,19 @@ public class UserStats {
         } else {
             return false;
         }
+    }
+
+    /**
+     * A utility function to set the properties of a UserStats to another UserStats.
+     * This is different from direct assignment, as the reference to this object is maintained.
+     * @param temp The other UserStats to copy from.
+     */
+    public void copy(UserStats temp) {
+
+        this.userName = temp.userName;
+        this.chapterData = temp.chapterData;
+        this.level = temp.level;
+        this.gender = temp.gender;
+        this.expLevel = temp.expLevel;
     }
 }

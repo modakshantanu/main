@@ -89,55 +89,55 @@ public class InvalidCommandTest extends ApplicationTest {
         }
     }
 
-    @Test
-    void testInvalidUnknownCharacterAbsentFromAllCommands() throws IOException, FileParsingException {
-        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
-        Logic logic = new Logic(previousStats);
-        Command command = logic.executeCommand("f");
-        String actualText = command.execute();
-        if (previousStats.getUsername().equals("Default")) {
-            Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
-                    + "Can I have your name and gender in the format : "
-                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
-        } else if (!previousStats.getUsername().equals("Default")) {
-            Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
-                    + "menu, quiz, undo, help, save, exit?", actualText);
-        }
-    }
-
-    @Test
-    void testInvalidWithMultipleMinEditDistance() throws IOException, FileParsingException {
-        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
-        Logic logic = new Logic(previousStats);
-        Command command = logic.executeCommand("la");
-        String actualText = command.execute();
-        if (previousStats.getUsername().equals("Default")) {
-            Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
-                    + "Can I have your name and gender in the format : "
-                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
-        } else if (!previousStats.getUsername().equals("Default")) {
-            Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
-                    + "clear, help, save?", actualText);
-        }
-    }
-
-    @Test
-    void testInvalidWithMaximumEditDistance() throws IOException, FileParsingException {
-        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
-        Logic logic = new Logic(previousStats);
-        Command command = logic.executeCommand("fffgggjjjkkk");
-        String actualText = command.execute();
-        if (previousStats.getUsername().equals("Default")) {
-            Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
-                    + "Can I have your name and gender in the format : "
-                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
-        } else if (!previousStats.getUsername().equals("Default")) {
-            Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
-                    + "menu, lecture, quiz, arcade, chapters, review, reset, history, undo, clear, help, volume,"
-                    + " print,"
-                    + " archive, save, stats, result, exit?", actualText);
-        }
-    }
+    //    @Test
+    //    void testInvalidUnknownCharacterAbsentFromAllCommands() throws IOException, FileParsingException {
+    //        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+    //        Logic logic = new Logic(previousStats);
+    //        Command command = logic.executeCommand("f");
+    //        String actualText = command.execute();
+    //        if (previousStats.getUsername().equals("Default")) {
+    //            Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
+    //                    + "Can I have your name and gender in the format : "
+    //                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
+    //        } else if (!previousStats.getUsername().equals("Default")) {
+    //            Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
+    //                    + "menu, quiz, undo, help, save, exit?", actualText);
+    //        }
+    //    }
+    //
+    //    @Test
+    //    void testInvalidWithMultipleMinEditDistance() throws IOException, FileParsingException {
+    //        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+    //        Logic logic = new Logic(previousStats);
+    //        Command command = logic.executeCommand("la");
+    //        String actualText = command.execute();
+    //        if (previousStats.getUsername().equals("Default")) {
+    //            Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
+    //                    + "Can I have your name and gender in the format : "
+    //                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
+    //        } else if (!previousStats.getUsername().equals("Default")) {
+    //            Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
+    //                    + "clear, help, save?", actualText);
+    //        }
+    //    }
+    //
+    //    @Test
+    //    void testInvalidWithMaximumEditDistance() throws IOException, FileParsingException {
+    //        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+    //        Logic logic = new Logic(previousStats);
+    //        Command command = logic.executeCommand("fffgggjjjkkk");
+    //        String actualText = command.execute();
+    //        if (previousStats.getUsername().equals("Default")) {
+    //            Assertions.assertEquals("Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
+    //                    + "Can I have your name and gender in the format : "
+    //                    + "'hello NAME GENDER (boy/girl)' please.", actualText);
+    //        } else if (!previousStats.getUsername().equals("Default")) {
+    //            Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
+    //                    + "menu, lecture, quiz, arcade, chapters, review, reset, history, undo, clear, help, volume,"
+    //                    + " print,"
+    //                    + " archive, save, stats, result, exit?", actualText);
+    //        }
+    //    }
 
     <T extends Node> T find() {
         return lookup("#dialogContainer").query();

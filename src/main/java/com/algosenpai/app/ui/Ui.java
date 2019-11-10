@@ -5,6 +5,7 @@ import com.algosenpai.app.logic.command.critical.ByeCommand;
 import com.algosenpai.app.logic.command.critical.ResetCommand;
 import com.algosenpai.app.logic.command.utility.ClearCommand;
 import com.algosenpai.app.logic.command.Command;
+import com.algosenpai.app.logic.command.utility.LoadCommand;
 import com.algosenpai.app.logic.command.utility.SetupCommand;
 import com.algosenpai.app.logic.command.utility.UndoCommand;
 import com.algosenpai.app.stats.UserStats;
@@ -83,9 +84,6 @@ public class Ui extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream(DEFAULT_PROFILE_PICTURE_PATH));
     private Image senpaiImage = new Image(this.getClass().getResourceAsStream(SENPAI_PROFILE_PICTURE_PATH));
 
-    // A bool flag to indicate if the datafile was corrupted. We handle that in Ui, rather than logic, since we
-    // Only need to show a message to the user, and this does not affect the rest of the logic.
-    private boolean wasDatafileCorrupted;
 
     /**
      * Renders the nodes on the GUI.
@@ -104,11 +102,6 @@ public class Ui extends AnchorPane {
             String username = "Username : " + SetupCommand.getUserName();
             setPlayerGender(gender);
             playerName.setText(username);
-        }
-
-        // If the datafile was corrupted, notify the user that their data has been reset.
-        if (wasDatafileCorrupted) {
-            printSenpaiText("Data file was corrupted! Data has been reset!",senpaiImage);
         }
 
         dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(response, senpaiImage));
@@ -136,7 +129,14 @@ public class Ui extends AnchorPane {
     public void setLogic(Logic logic, UserStats stats, boolean wasDatafileCorrupted) {
         this.logic = logic;
         this.stats = stats;
-        this.wasDatafileCorrupted = wasDatafileCorrupted;
+        // If the datafile was corrupted, notify the user that their data has been reset.
+        if (wasDatafileCorrupted) {
+            clearChat();
+            printSenpaiText("Data file was corrupted! Data has been reset!",senpaiImage);
+            printSenpaiText("\"Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\\n\"\n"
+                      + "\"Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.\";",
+                    senpaiImage);
+        }
     }
 
     /**
@@ -159,7 +159,7 @@ public class Ui extends AnchorPane {
             }
         } else if (commandGenerated instanceof ClearCommand) {
             clearChat();
-        } else if (commandGenerated instanceof ResetCommand) {
+        } else if (commandGenerated instanceof ResetCommand || commandGenerated instanceof LoadCommand) {
             userLevel = stats.getUserLevel();
             maxuserExp = 8 << (userLevel - 1);
             userExp = stats.getUserExp();

@@ -92,7 +92,7 @@ public class MainApp extends Application {
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap, MAINWINDOW_WIDTH, MAINWINDOW_HEIGHT);
         stage.setScene(scene);
-        fxmlLoader.<Ui>getController().setLogic(logic, stats,wasDatafileCorrupted);
+        fxmlLoader.<Ui>getController().setLogic(logic, stats, wasDatafileCorrupted);
         stage.setResizable(false);
         stage.setTitle(APPLICATION_TITLE);
         stage.show();
