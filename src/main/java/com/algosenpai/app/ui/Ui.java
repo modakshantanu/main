@@ -83,7 +83,10 @@ public class Ui extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream(DEFAULT_PROFILE_PICTURE_PATH));
     private Image senpaiImage = new Image(this.getClass().getResourceAsStream(SENPAI_PROFILE_PICTURE_PATH));
 
-    
+    // A bool flag to indicate if the datafile was corrupted. We handle that in Ui, rather than logic, since we
+    // Only need to show a message to the user, and this does not affect the rest of the logic.
+    private boolean wasDatafileCorrupted;
+
     /**
      * Renders the nodes on the GUI.
      */
@@ -102,6 +105,12 @@ public class Ui extends AnchorPane {
             setPlayerGender(gender);
             playerName.setText(username);
         }
+
+        // If the datafile was corrupted, notify the user that their data has been reset.
+        if (wasDatafileCorrupted) {
+            printSenpaiText("Data file was corrupted! Data has been reset!",senpaiImage);
+        }
+
         dialogContainer.getChildren().add(DialogBox.getSenpaiDialog(response, senpaiImage));
         handle();
         userPic.setImage(userImage);
@@ -112,7 +121,7 @@ public class Ui extends AnchorPane {
         userInput.setOnKeyPressed(keyEvent -> {
             if (!keyPressed) {
                 handleKeyPress(keyEvent.getCode());
-                // Set flag to true to ignore any more keypress events when that key is helld down.
+                // Set flag to true to ignore any more keyPress events when that key is held down.
                 keyPressed = true;
             }
         });
@@ -121,9 +130,13 @@ public class Ui extends AnchorPane {
         handle();
     }
 
-    public void setLogic(Logic logic, UserStats stats) {
+    /**
+     * Set Logic.
+     */
+    public void setLogic(Logic logic, UserStats stats, boolean wasDatafileCorrupted) {
         this.logic = logic;
         this.stats = stats;
+        this.wasDatafileCorrupted = wasDatafileCorrupted;
     }
 
     /**

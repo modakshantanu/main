@@ -1,9 +1,11 @@
 package com.algosenpai.app.logic.command.utility;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.storage.Storage;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class SetupCommand extends Command {
@@ -38,7 +40,14 @@ public class SetupCommand extends Command {
     @Override
     public String execute() {
         if (inputs.size() < 3) {
-            UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+            UserStats previousStats = null;
+
+            try {
+                previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+            } catch (FileParsingException | FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
             if (previousStats.getUsername().equals("Default")) {
                 return "Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
                         + "Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.";

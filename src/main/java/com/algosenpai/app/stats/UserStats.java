@@ -5,6 +5,7 @@ import com.algosenpai.app.storage.Storage;
 
 import javafx.util.Pair;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,27 +68,21 @@ public class UserStats {
             chapterData.add(new ChapterStat("Bitmask",3,0,0,0,0,0,INIT_COMMENT));
             Storage.saveData("./UserData.txt", this.toString());
         } else {
-            String fileContents = Storage.loadData("./UserData.txt");
+            String fileContents = null;
+            try {
+                fileContents = Storage.loadData("./UserData.txt");
+            } catch (FileNotFoundException ignored) {
+                throw new FileParsingException("The file does not exist!");
+            }
             UserStats dummy = UserStats.parseString(fileContents);
+
+            // Call the parsing method and copy over the values.
+            // Idk any better way to do this.
             this.userName = dummy.userName;
             this.gender = dummy.gender;
             this.level = dummy.level;
-
-            // Get the first 6 lines. 6th line contains the chapterData.
-            String [] tokens = fileContents.split("\n",8);
-            this.userName = tokens[2];
-            this.gender = tokens[3];
-            this.level = Integer.parseInt(tokens[4]);
-            this.expLevel = Integer.parseInt(tokens[5]);
-
-            // No chapters in the list, so exit early, otherwise will cause parsing error.
-            if (tokens.length > 7) {
-                // Each chapter's data is separated by 2 newlines, so split like this to get the chapterData
-                String[] chapterDataTokens = tokens[7].split("\n\n");
-                for (String chapterString: chapterDataTokens) {
-                    this.chapterData.add(ChapterStat.parseString(chapterString));
-                }
-            }
+            this.expLevel = dummy.expLevel;
+            this.chapterData = dummy.chapterData;
         }
     }
 
@@ -291,7 +286,7 @@ public class UserStats {
      * @param string The string version of the UserStats (obtained by calling toString()).
      * @return The UserStats object.
      */
-    public static UserStats parseString(String string) {
+    public static UserStats parseString(String string) throws FileParsingException {
         try {
 
             // Get the first 6 lines. 6th line contains the chapterData.
@@ -312,11 +307,8 @@ public class UserStats {
                 chapterStats.add(ChapterStat.parseString(chapterString));
             }
             return new UserStats(userName, gender, level, expLevel, chapterStats);
-        } catch (Exception e) {
-            e.printStackTrace();
-            UserStats u = getDefaultUserStats();
-            u.setUsername("UserStats parsing error, please do not edit data files");
-            return u;
+        } catch (Exception ignored) {
+            throw new FileParsingException();
         }
 
     }

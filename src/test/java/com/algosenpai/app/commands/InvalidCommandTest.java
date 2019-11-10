@@ -1,6 +1,8 @@
 //@@author carrieng0323852
+
 package com.algosenpai.app.commands;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.logic.Logic;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.stats.UserStats;
@@ -35,9 +37,9 @@ public class InvalidCommandTest extends ApplicationTest {
         AnchorPane ap = fxmlLoader.load();
         Scene scene = new Scene(ap, 500, 650);
         stage.setScene(scene);
-        UserStats stats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        UserStats stats = new UserStats("./UserData.txt");
         Logic logic = new Logic(stats);
-        fxmlLoader.<Ui>getController().setLogic(logic, stats);
+        fxmlLoader.<Ui>getController().setLogic(logic, stats, false);
         stage.setResizable(false);
         stage.setTitle("AlgoSenpai Adventures");
         stage.show();
@@ -72,7 +74,7 @@ public class InvalidCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testInvalidMultipleSpaces() throws IOException {
+    void testInvalidMultipleSpaces() throws IOException, FileParsingException {
         UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
         Logic logic = new Logic(previousStats);
         Command command = logic.executeCommand("qu iz");
@@ -88,7 +90,7 @@ public class InvalidCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testInvalidUnknownCharacterAbsentFromAllCommands() throws IOException {
+    void testInvalidUnknownCharacterAbsentFromAllCommands() throws IOException, FileParsingException {
         UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
         Logic logic = new Logic(previousStats);
         Command command = logic.executeCommand("f");
@@ -104,7 +106,7 @@ public class InvalidCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testInvalidWithMultipleMinEditDistance() throws IOException {
+    void testInvalidWithMultipleMinEditDistance() throws IOException, FileParsingException {
         UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
         Logic logic = new Logic(previousStats);
         Command command = logic.executeCommand("la");
@@ -120,7 +122,7 @@ public class InvalidCommandTest extends ApplicationTest {
     }
 
     @Test
-    void testInvalidWithMaximumEditDistance() throws IOException {
+    void testInvalidWithMaximumEditDistance() throws IOException, FileParsingException {
         UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
         Logic logic = new Logic(previousStats);
         Command command = logic.executeCommand("fffgggjjjkkk");

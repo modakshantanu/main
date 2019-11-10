@@ -2,12 +2,14 @@
 
 package com.algosenpai.app.logic.command.errorhandling;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.constant.CommandsEnum;
 import com.algosenpai.app.logic.parser.Parser;
 import com.algosenpai.app.stats.UserStats;
 import com.algosenpai.app.storage.Storage;
 
+import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,12 @@ public class InvalidCommand extends Command {
 
     @Override
     public String execute() {
-        UserStats previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        UserStats previousStats = null;
+        try {
+            previousStats = UserStats.parseString(Storage.loadData("UserData.txt"));
+        } catch (FileParsingException | FileNotFoundException e) {
+            e.printStackTrace();
+        }
         if (previousStats.getUsername().equals("Default")) {
             return "Hello there! Welcome to the world of DATA STRUCTURES AND ALGORITHMS.\n"
                     + "Can I have your name and gender in the format : 'hello NAME GENDER (boy/girl)' please.";

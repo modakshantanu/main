@@ -6,6 +6,12 @@ package com.algosenpai.app.exceptions;
  */
 public class FileParsingException extends SenpaiExceptions {
 
+    private static final String ERROR_MSG = "User Data file is corrupted";
+
+    public FileParsingException() {
+        super(ERROR_MSG);
+    }
+
     public FileParsingException(String message) {
         super(message);
     }

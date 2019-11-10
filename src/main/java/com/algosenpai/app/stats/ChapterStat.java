@@ -128,7 +128,7 @@ public class ChapterStat {
             return new ChapterStat(chapterName,chapterNumber,attempts,
                     totalAnswered,correctAnswers,wrongAnswers,percentage,comments);
         } catch (Exception e) {
-            throw new FileParsingException("User Data file is corrupted!");
+            throw new FileParsingException();
         }
 
     }
