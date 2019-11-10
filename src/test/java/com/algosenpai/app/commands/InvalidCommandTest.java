@@ -176,7 +176,8 @@ public class InvalidCommandTest extends ApplicationTest {
                                               + "Enter `menu` to view our list of commands "
                                               + "and `menu <command> to find out how to use them!", actualText);
             Assertions.assertEquals("OOPS!!! Error occurred. Please input a valid command. Did you mean... "
-                    + "menu, lecture, quiz, arcade, chapters, review, reset, history, undo, clear, help, volume, print,"
+                    + "menu, lecture, quiz, arcade, chapters, review, reset, history, undo, clear, help, volume,"
+                    + " print,"
                     + " archive, save, stats, result, exit?", actualText);
         }
     }
