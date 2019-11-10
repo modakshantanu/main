@@ -1,5 +1,6 @@
 package com.algosenpai.app.stats;
 
+import com.algosenpai.app.exceptions.FileParsingException;
 import com.algosenpai.app.storage.Storage;
 
 import javafx.util.Pair;
@@ -47,7 +48,7 @@ public class UserStats {
      * If the text file doesn't exist, the UserStats variables are populated with default values.
      * @param userDataFilePath the file path to the text file.
      */
-    public UserStats(String userDataFilePath) throws IOException {
+    public UserStats(String userDataFilePath) throws FileParsingException {
         chapterData = new ArrayList<>();
         this.chapterNumber.put("sorting", 1);
         this.chapterNumber.put("linkedlist", 2);
@@ -67,6 +68,10 @@ public class UserStats {
             Storage.saveData("./UserData.txt", this.toString());
         } else {
             String fileContents = Storage.loadData("./UserData.txt");
+            UserStats dummy = UserStats.parseString(fileContents);
+            this.userName = dummy.userName;
+            this.gender = dummy.gender;
+            this.level = dummy.level;
 
             // Get the first 6 lines. 6th line contains the chapterData.
             String [] tokens = fileContents.split("\n",8);

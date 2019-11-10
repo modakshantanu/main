@@ -5,6 +5,8 @@ import com.algosenpai.app.logic.chapters.QuizGenerator;
 import com.algosenpai.app.logic.command.ChaptersCommand;
 import com.algosenpai.app.logic.command.Command;
 import com.algosenpai.app.logic.command.HelpCommand;
+import com.algosenpai.app.logic.command.QuizNextCommand;
+import com.algosenpai.app.logic.command.SaveCommand;
 import com.algosenpai.app.logic.command.critical.ArcadeCommand;
 import com.algosenpai.app.logic.command.critical.ByeCommand;
 import com.algosenpai.app.logic.command.critical.LectureCommand;
@@ -14,7 +16,6 @@ import com.algosenpai.app.logic.command.errorhandling.ArcadeBlockedCommand;
 import com.algosenpai.app.logic.command.errorhandling.InvalidCommand;
 import com.algosenpai.app.logic.command.errorhandling.LectureBlockedCommand;
 import com.algosenpai.app.logic.command.errorhandling.QuizBlockedCommand;
-import com.algosenpai.app.logic.command.QuizNextCommand;
 import com.algosenpai.app.logic.command.utility.VolumeCommand;
 import com.algosenpai.app.logic.command.utility.ArchiveCommand;
 import com.algosenpai.app.logic.command.utility.ClearCommand;
@@ -158,6 +159,8 @@ public class Logic {
             return new VolumeCommand(parsedUserInputs);
         case "hello":
             return new SetupCommand(parsedUserInputs, userStats);
+        case "save":
+            return new SaveCommand(parsedUserInputs, userStats);
         default:
             return new InvalidCommand(parsedUserInputs);
         }
