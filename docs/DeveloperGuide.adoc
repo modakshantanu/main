@@ -544,7 +544,7 @@ Use case ends.
 
 [discrete]
 ==== UC10: Undo my answers
-. User enters the `undo` command
+. User enters the `delete` command
 . System  the previous action done by the user
 
 Use case ends.
