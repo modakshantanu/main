@@ -226,19 +226,19 @@ image::history.png[width="650"]
 
 ====
 
-=== Delete chat bubbles in the chat-box : `undo`
+=== Delete chat bubbles in the chat-box : `delete`
 
 This command allows users to delete the previous chat bubbles in the chat. +
 If `NUMBER` is not specified, the number of messages removes from chat is default to 1. +
-Format : `undo NUMBER`
+Format : `delete NUMBER`
 
 ====
 Example: +
-`undo 2` will delete 2 chat bubbles.
+`delete 2` will delete 2 chat bubbles.
 =====
 *Expected outcome*
 
-** Pre-undo
+** Pre-delete
 
 image::preundo.png[width="650"]
 
@@ -248,7 +248,7 @@ image::postundo.png[width=""650"]
 
 =====
 ====
-- NUMBER should be a positive and greater than 1 (since `undo` gives a default of NUMBER as 1)
+- NUMBER should be a positive and greater than 1 (since `delete` gives a default of NUMBER as 1)
 - NUMBER should be smaller than the number of response chats.
 
 === Provides questions for improvement : `help`
@@ -504,7 +504,7 @@ placed into practicing the chapters which are deemed “weak” by the reports a
 understanding.
 
 *Q*: There are too many messages in the application. How do you clear the messages in the application?  +
-*A*: You can run `undo <x>` where x is the number of messages you want to delete. Alternatively, you can run
+*A*: You can run `delete <x>` where x is the number of messages you want to delete. Alternatively, you can run
 `clear` to delete all the messages.
 
 *Q*: Can I challenge friends in a multi-player mode?   +
@@ -519,6 +519,13 @@ the software at our https://github.com/AY1920S1-CS2113T-T09-3/main/releases[rele
 *A*: You can contact us at contact@algosenpaiadventures.com.
 
 == Troubleshooting
+
+*Problem*: The app does not launch after double-clicking +
+*Solution*: Ensure you have Java `11` or above installed in your Computer.
+
+*Problem*: I have Java 11, but the app still doesn't work +
+*Solution*: Open windows powershell in the directory containing the jar file. +
+Then type `java -jar <Name of the jar file>` to run the jar file.
 
 *Problem*: The app does not launch after double-clicking +
 *Solution*: Ensure you have Java `11` or above installed in your Computer.
@@ -544,8 +551,8 @@ e.g. `40, 50, 30`
 e.g. `review 6`
 * *history* : `history NUMBER` +
 e.g. `history 5`
-* *undo* : `undo || undo NUMBER` +
-e.g. `undo` gives a default NUMBER as 1 or `undo 4`
+* *delete* : `delete || delete NUMBER` +
+e.g. `delete` gives a default NUMBER as 1 or `delete 4`
 * *clear* : `clear`
 * *help* : `help CHAPTER` +
 e.g. `help sorting`
