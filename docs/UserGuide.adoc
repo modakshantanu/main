@@ -394,7 +394,7 @@ image::saveload.png[width="650"]
 If the load file is invalid, the following error message is shown.
 
 ====
-*Expected Outcome for save (see below) and load*
+*Invalid file*
 
 image::invalidload.png[width="650"]
 
@@ -412,6 +412,17 @@ filename as the second parameter.
 
 
 Format : `save` or `save <filename>.txt`.
+
+=== Keyboard Shortcuts
+
+AlgoSenpai Adventures supports the following standard terminal shortcuts:
+
+* `TAB`: Type the beginning of a valid command, then press `TAB` and the app will auto-complete the command to the
+command with the same prefix. If multiple commands exist with that prefix, any one may be completed arbitrarily.
+* `UP` and `DOWN` Arrow Keys: Press the `UP` and `DOWN` key to cycle through the list of all the commands you have
+previously entered. `UP`  cycles backward and `DOWN` cycles forward in time.
+
+In addition, the standard text editing shortcuts are functional in the text entry field.
 
 
 == FAQ
