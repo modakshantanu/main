@@ -7,22 +7,7 @@ Default
 
 Chapter 1 : Sorting
 Total Attempts made : 0
-Total Questions answered : 0
-Total Questions correct : 0
-Total Questions wrong : 0
-Percentage of Questions correct : 0.0
-Comments : "You have not attempted this chapter yet"
-
-Chapter 2 : Linked List
-Total Attempts made : 0
-Total Questions answered : 0
-Total Questions correct : 0
-Total Questions wrong : 0
-Percentage of Questions correct : 0.0
-Comments : "You have not attempted this chapter yet"
-
-Chapter 3 : Bitmask
-Total Attempts made : 0
+Total Questi
 Total Questions answered : 0
 Total Questions correct : 0
 Total Questions wrong : 0

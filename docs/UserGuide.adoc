@@ -373,12 +373,45 @@ image::stats.png[width="650"]
 
 ====
 
-=== Manually save the game : `save` `[coming in v1.4]`
+=== Load the game form another save file: `load`
 
-This command provides a way for you to save the game manually. Normally, the game would already be saving your game for you at
-certain checkpoints. However, in the event that our auto-save function does not work, it is highly recommended to do a manual save
-from time to time. +
-Format : `save`
+This command allows you to load user data from another save .txt file. The save file must
+be a valid save file generated using
+the `save` command written below.
+
+NOTE: The load command does not replace your original data. To do that, you must run the `save` command (without
+extra parameters), which saves the current data to the UserStats.txt text file.
+
+Format: `load <filename>.txt`
+
+====
+*Expected Outcome for save (see below) and load*
+
+image::saveload.png[width="650"]
+
+====
+
+If the load file is invalid, the following error message is shown.
+
+====
+*Expected Outcome for save (see below) and load*
+
+image::invalidload.png[width="650"]
+
+====
+
+=== Manually save the game : `save`
+
+This command allows you to save your data manually to a text file. There are
+two use cases for this command:
+
+* After a `load` command, you can use the `save` command to update your default UserStats file to the one that is
+currently loaded. To do this, use the `save` command with no additional parameters.
+* To export your User Data to another text file to share with others, you can use the `save` command with a custom
+filename as the second parameter.
+
+
+Format : `save` or `save <filename>.txt`.
 
 
 == FAQ
@@ -506,8 +539,10 @@ e.g. `volume 1`
 e.g `print user MyData.pdf`
 * *archive* : `archive QUESTION_NUMBER` +
 e.g. `archive 1`
-* *load* : `load <filename>.txt` +
+* *load* : `load <filename>.txt` or `load` +
 e.g. `load UserData.txt`
+* *save* : `save <filename>.txt` +
+e.g. `save DataFile.txt`
 * *stats* : `stats`
 * *reset* : `reset`
 * *exit* : `exit`
